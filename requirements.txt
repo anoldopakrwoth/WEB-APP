@@ -1,0 +1,10 @@
+# Django
+Django==6.0.5
+Pillow==12.2.0
+python-dotenv==1.0.0
+
+# WSGI
+gunicorn==21.2.0
+
+# Production database (optional)
+psycopg2-binary==2.9.9
