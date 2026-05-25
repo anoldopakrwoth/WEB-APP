@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+
+{% block title %}Analytics - Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-4 mb-5">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="mb-0"><i class="fas fa-chart-bar"></i> Analytics & Reports</h1>
+            <p class="text-muted">System analytics and performance metrics</p>
+        </div>
+    </div>
+
+    <!-- Key Statistics -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <p class="text-muted mb-2">Total Users</p>
+                    <h3 class="mb-0">{{ total_users }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <p class="text-muted mb-2">Farmers</p>
+                    <h3 class="mb-0">{{ farmers }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <p class="text-muted mb-2">Buyers</p>
+                    <h3 class="mb-0">{{ buyers }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <p class="text-muted mb-2">Active Listings</p>
+                    <h3 class="mb-0">{{ active_listings }}/{{ total_listings }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top Sellers -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-award"></i> Top Sellers (Last 30 Days)</h5>
+                </div>
+                <div class="card-body">
+                    {% if top_sellers %}
+                        <div class="list-group">
+                            {% for seller in top_sellers %}
+                            <div class="list-group-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="mb-0">{{ seller.username }}</h6>
+                                        <small class="text-muted">{{ seller.email }}</small>
+                                    </div>
+                                    <span class="badge bg-success">{{ seller.listing_count }} listings</span>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-muted">No data available.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Popular Produce -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-fire"></i> Most Popular Produce</h5>
+                </div>
+                <div class="card-body">
+                    {% if popular_produces %}
+                        <div class="list-group">
+                            {% for produce in popular_produces %}
+                            <div class="list-group-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h6 class="mb-0">{{ produce.title }}</h6>
+                                    <span class="badge bg-info">{{ produce.count }} listings</span>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-muted">No data available.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detailed Analytics -->
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0"><i class="fas fa-line-chart"></i> Growth Trends (Last 30 Days)</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h6>New Users Per Day</h6>
+                    <p class="text-muted">Total new signups: {{ daily_new_users|sum }}</p>
+                    <div class="progress" style="height: 250px;">
+                        <div class="d-flex align-items-flex-end gap-1" style="width: 100%; height: 100%;">
+                            {% for count in daily_new_users %}
+                            <div class="bg-success" style="flex: 1; height: {{ count|add:10 }}px;" title="{{ count }} users"></div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h6>New Listings Per Day</h6>
+                    <p class="text-muted">Total new listings: {{ daily_new_listings|sum }}</p>
+                    <div class="progress" style="height: 250px;">
+                        <div class="d-flex align-items-flex-end gap-1" style="width: 100%; height: 100%;">
+                            {% for count in daily_new_listings %}
+                            <div class="bg-info" style="flex: 1; height: {{ count|add:10 }}px;" title="{{ count }} listings"></div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <a href="{% url 'dashboard_home' %}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+    </div>
+</div>
+
+<style>
+    .card {
+        border: none;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+    .card-header {
+        background-color: #2ecc71;
+        color: white;
+        border-bottom: none;
+    }
+
+    .list-group-item {
+        border: 1px solid #ddd;
+        padding: 12px;
+        margin-bottom: 8px;
+        border-radius: 4px;
+    }
+
+    .list-group-item:hover {
+        background-color: #f8f9fa;
+    }
+</style>
+{% endblock %}

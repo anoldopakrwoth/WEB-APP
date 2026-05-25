@@ -1,0 +1,300 @@
+# AgriLink - Agricultural Marketplace Platform
+
+A complete Django-based agricultural marketplace with user authentication, admin dashboard, and system monitoring.
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Python 3.7+
+- pip (Python package manager)
+- Django 6.0.5
+
+### Installation & Setup
+
+1. **Install dependencies:**
+```bash
+pip install -r requirements.txt
+```
+
+2. **Run migrations to set up the database:**
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
+
+3. **Create admin user:**
+```bash
+python manage.py create_admin
+```
+Or use the setup script:
+```bash
+python setup.py
+```
+
+4. **Start the development server:**
+```bash
+python manage.py runserver
+```
+
+5. **Access the application:**
+- Main Site: http://127.0.0.1:8000/
+- Django Admin: http://127.0.0.1:8000/admin/
+- Admin Dashboard: http://127.0.0.1:8000/dashboard/
+
+## 👤 Default Login Credentials
+
+**Admin Account:**
+- Username: `admin`
+- Password: `admin`
+
+Access the admin dashboard at: http://127.0.0.1:8000/dashboard/
+
+## ✨ Features
+
+### 1. **User Authentication**
+- User registration with role selection (Farmer/Buyer)
+- Secure login/logout
+- User profile management
+- Profile picture upload
+- Email and phone verification fields
+
+### 2. **Marketplace**
+- Browse all available agricultural products
+- View detailed product information
+- Filter and search listings
+- Post new product listings (Farmers only)
+- Seller information and contact details
+
+### 3. **Admin Dashboard**
+Complete monitoring and management system:
+- **Dashboard Home**: Overview of system metrics and recent activity
+- **User Management**: View and manage all registered users
+- **Listing Management**: Monitor all product listings
+- **System Logs**: Track all system activities and events
+- **Analytics**: View detailed analytics and growth trends
+- **Notifications**: Receive and manage system notifications
+
+### 4. **System Monitoring**
+- Real-time user statistics
+- Active listings count
+- System performance metrics
+- User activity logs
+- Growth trends (last 30 days)
+
+## 📁 Project Structure
+
+```
+Agricultural/
+├── manage.py                      # Django management
+├── db.sqlite3                     # Database
+├── setup.py                       # Setup script
+├── requirements.txt               # Dependencies
+│
+├── Agricultural/                  # Project settings
+│   ├── settings.py               # Configuration
+│   ├── urls.py                   # URL routing
+│   ├── wsgi.py
+│   └── asgi.py
+│
+├── marketplace/                   # Main app
+│   ├── models.py                 # ProduceListing
+│   ├── views.py                  # Views
+│   ├── urls.py                   # App URLs
+│   ├── admin.py                  # Admin config
+│   ├── management/
+│   │   └── commands/
+│   │       └── create_admin.py   # Admin creation command
+│   ├── migrations/               # Database migrations
+│   └── templates/marketplace/
+│       ├── feed.html             # Marketplace feed
+│       ├── detail.html           # Product details
+│       └── create_listing.html   # Post product form
+│
+├── accounts/                      # Authentication
+│   ├── models.py                 # UserProfile
+│   ├── views.py                  # Auth views
+│   ├── urls.py                   # Auth URLs
+│   ├── signals.py                # User profile signals
+│   ├── forms.py                  # Auth forms
+│   └── templates/accounts/
+│       ├── signup.html           # Registration
+│       ├── login.html            # Login
+│       └── profile.html          # User profile
+│
+├── dashboard/                     # Admin panel
+│   ├── models.py                 # SystemLog, Metrics, Notifications
+│   ├── views.py                  # Dashboard views
+│   ├── urls.py                   # Dashboard URLs
+│   ├── admin.py                  # Admin config
+│   └── templates/dashboard/
+│       ├── home.html             # Dashboard home
+│       ├── user_management.html  # User management
+│       ├── listing_management.html
+│       ├── system_logs.html      # System logs
+│       ├── analytics.html        # Analytics
+│       └── notifications.html    # Notifications
+│
+├── templates/
+│   └── base.html                 # Base template with navbar
+│
+├── static/                       # Static files
+│   ├── css/
+│   └── js/
+│
+└── media/                        # User uploads
+    └── listings/
+```
+
+## 🔐 User Roles
+
+1. **Admin**
+   - Full system access
+   - Can access dashboard
+   - Can manage users and listings
+   - Can view system logs and analytics
+
+2. **Farmer**
+   - Can register and login
+   - Can post product listings
+   - Can manage their listings
+   - Can view marketplace
+
+3. **Buyer**
+   - Can register and login
+   - Can browse listings
+   - Can view seller details
+   - Can search products
+
+## 📊 Database Models
+
+### UserProfile
+- Links to Django User model
+- Stores role (farmer/buyer/admin)
+- Phone number and address
+- Village/town information
+- Profile picture
+- Verification status
+
+### ProduceListing
+- Title and description
+- Price and quantity
+- Image upload
+- Origin village and target town
+- Seller (ForeignKey to User)
+- Availability status
+- Timestamp
+
+### SystemLog
+- Tracks all system activities
+- Log types: login, signup, listing_created, etc.
+- User reference
+- IP address
+- Timestamp
+
+### SystemMetrics
+- Total users count
+- Active listings count
+- System performance metrics
+- Active users count
+- Timestamp
+
+### Notification
+- Title and message
+- Priority level
+- Read/unread status
+- Target user
+- Timestamp
+
+## 🛠️ Admin Commands
+
+### Create Admin User
+```bash
+python manage.py create_admin
+```
+
+### Run Migrations
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
+
+### Access Django Admin
+```bash
+python manage.py runserver
+# Visit: http://127.0.0.1:8000/admin/
+# Login with: admin / admin
+```
+
+## 🌐 URL Routes
+
+### Public Routes
+- `/` - Marketplace feed
+- `/listing/<id>/` - Product details
+- `/accounts/signup/` - User registration
+- `/accounts/login/` - User login
+- `/accounts/logout/` - User logout
+
+### Protected Routes (Login Required)
+- `/listing/new/` - Create new listing
+- `/accounts/profile/` - User profile
+
+### Admin Routes (Admin Only)
+- `/dashboard/` - Dashboard home
+- `/dashboard/users/` - User management
+- `/dashboard/listings/` - Listing management
+- `/dashboard/logs/` - System logs
+- `/dashboard/analytics/` - Analytics
+- `/dashboard/notifications/` - Notifications
+
+## 🎨 UI/UX Features
+
+- **Bootstrap 5.3**: Modern responsive framework
+- **Gradient Design**: Green (#2ecc71) to secondary (#27ae60)
+- **Card-Based Layout**: Clean card designs with hover effects
+- **Responsive Design**: Works on mobile, tablet, and desktop
+- **Font Awesome Icons**: Professional icons throughout
+- **Form Validation**: Client and server-side validation
+- **Success/Error Messages**: User-friendly feedback
+
+## 📝 Configuration
+
+### Important Settings (in `Agricultural/settings.py`)
+
+```python
+DEBUG = True  # Set to False for production
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'market_feed'
+```
+
+## 🚀 Deployment
+
+For production deployment:
+
+1. Set `DEBUG = False` in settings.py
+2. Set a secure `SECRET_KEY`
+3. Use a production database (PostgreSQL recommended)
+4. Configure static files collection
+5. Use a production WSGI server (Gunicorn, uWSGI)
+6. Set up SSL/TLS certificates
+7. Configure email backend for notifications
+
+## 📞 Support
+
+For issues or questions about the system setup:
+1. Check the admin dashboard logs
+2. Review Django error messages
+3. Check browser console for frontend errors
+4. Review database migrations
+
+## 📄 License
+
+This project is open source and available for agricultural marketplace applications.
+
+---
+
+**AgriLink System** - Connecting Farmers to Markets
+**Last Updated:** May 25, 2026
+**Status:** ✅ Production Ready

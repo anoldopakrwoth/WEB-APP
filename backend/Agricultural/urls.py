@@ -21,8 +21,9 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('marketplace.urls')), #this root URL straigth to your market feed
-    
+    path('', include('marketplace.urls')),  # Marketplace feed
+    path('accounts/', include('accounts.urls')),  # Authentication
+    path('dashboard/', include('dashboard.urls')),  # Admin dashboard
 ]
 
 if settings.DEBUG:
