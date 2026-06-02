@@ -20,6 +20,9 @@
             <a class="dashboard-bar-link {% if current_url == 'notifications' %}active{% endif %}" href="{% url 'notifications' %}">
                 <i class="fas fa-bell"></i> Notifications
             </a>
+            <a class="dashboard-bar-link {% if current_url == 'change_admin_password' %}active{% endif %}" href="{% url 'change_admin_password' %}">
+                <i class="fas fa-key"></i> Password
+            </a>
             <span class="dashboard-bar-spacer" aria-hidden="true"></span>
             <a class="dashboard-bar-link" href="{% url 'market_feed' %}">
                 <i class="fas fa-store"></i> Marketplace

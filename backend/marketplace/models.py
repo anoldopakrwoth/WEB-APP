@@ -24,6 +24,7 @@ class ProduceListing(models.Model):
         price (Decimal): Price in local currency
         quantity (str): Quantity and unit (e.g., "50kg bag")
         image (ImageField): Product photo
+        video (FileField): Short product video
         village_origin (str): Village where produce is located
         target_town (str): Nearest town/destination
         created_at (DateTime): Timestamp when listing was created
@@ -62,6 +63,13 @@ class ProduceListing(models.Model):
         null=True,
         blank=True,
         help_text='Upload a photo of your produce'
+    )
+
+    video = models.FileField(
+        upload_to='listing_videos/',
+        null=True,
+        blank=True,
+        help_text='Upload a short video of your harvest'
     )
 
     village_origin = models.CharField(

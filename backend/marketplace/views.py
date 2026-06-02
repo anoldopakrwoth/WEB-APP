@@ -14,7 +14,7 @@ from django.contrib import messages
 from django.http import HttpRequest, HttpResponse
 from django.views.decorators.http import require_http_methods
 from django.core.exceptions import ValidationError
-from common import validate_image_upload
+from common import validate_image_upload, validate_video_upload
 from .models import ProduceListing
 
 
@@ -142,7 +142,16 @@ def create_listing(request: HttpRequest) -> HttpResponse:
         quantity_str = request.POST.get('quantity', '').strip()
         village_origin = request.POST.get('village_origin', '').strip()
         target_town = request.POST.get('target_town', '').strip()
-        image = request.FILES.get('image', None)
+        image = (
+            request.FILES.get('camera_image')
+            or request.FILES.get('image')
+            or None
+        )
+        video = (
+            request.FILES.get('camera_video')
+            or request.FILES.get('video')
+            or None
+        )
 
         # Validate all required fields
         if not all([title, description, price_str, quantity_str,
@@ -165,6 +174,7 @@ def create_listing(request: HttpRequest) -> HttpResponse:
             price = _validate_price(price_str)
             quantity = _validate_quantity(quantity_str)
             validate_image_upload(image)
+            validate_video_upload(video)
 
             ProduceListing.objects.create(
                 seller=request.user,
@@ -175,6 +185,7 @@ def create_listing(request: HttpRequest) -> HttpResponse:
                 village_origin=village_origin,
                 target_town=target_town,
                 image=image if image else None,
+                video=video if video else None,
             )
 
             messages.success(request, 'Listing created successfully!')

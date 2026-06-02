@@ -7,7 +7,10 @@ managing users, listings, system logs, analytics, and notifications.
 
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
+from django.contrib.auth import update_session_auth_hash
+from django.contrib import messages
 from django.db.models import Count, Q
 from django.utils import timezone
 from django.http import HttpRequest, HttpResponse
@@ -361,3 +364,31 @@ def notifications(request: HttpRequest) -> HttpResponse:
     }
 
     return render(request, 'dashboard/notifications.html', context)
+
+
+@login_required(login_url='login')
+@user_passes_test(is_admin_user, login_url='market_feed')
+@require_http_methods(['GET', 'POST'])
+def change_admin_password(request: HttpRequest) -> HttpResponse:
+    """
+    Let an administrator change their dashboard login password.
+
+    The default admin account starts as admin/admin, and this page allows the
+    password to be changed without leaving the dashboard.
+    """
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Admin password changed successfully.')
+            return redirect('dashboard_home')
+        messages.error(request, 'Please correct the password form errors.')
+    else:
+        form = PasswordChangeForm(request.user)
+
+    return render(
+        request,
+        'dashboard/change_password.html',
+        {'form': form},
+    )

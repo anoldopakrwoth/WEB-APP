@@ -106,6 +106,9 @@
                     <a href="{% url 'notifications' %}" class="btn btn-outline-secondary">
                         <i class="fas fa-bell"></i> Notifications {% if unread_notifications %}<span class="badge bg-danger">{{ unread_notifications }}</span>{% endif %}
                     </a>
+                    <a href="{% url 'change_admin_password' %}" class="btn btn-outline-dark">
+                        <i class="fas fa-key"></i> Change Password
+                    </a>
                 </div>
             </div>
         </div>

@@ -285,7 +285,7 @@
                         </li>
                         {% if user.is_staff or user.is_superuser %}
                         <li class="nav-item">
-                            <a class="nav-link dashboard-entry {% if current_url == 'dashboard_home' or current_url == 'user_management' or current_url == 'listing_management' or current_url == 'analytics' or current_url == 'system_logs' or current_url == 'notifications' %}active{% endif %}" href="{% url 'dashboard_home' %}">
+                            <a class="nav-link dashboard-entry {% if current_url == 'dashboard_home' or current_url == 'user_management' or current_url == 'listing_management' or current_url == 'analytics' or current_url == 'system_logs' or current_url == 'notifications' or current_url == 'change_admin_password' %}active{% endif %}" href="{% url 'dashboard_home' %}">
                                 <i class="fas fa-chart-line"></i> Dashboard
                             </a>
                         </li>

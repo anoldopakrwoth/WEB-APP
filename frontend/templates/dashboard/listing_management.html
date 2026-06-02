@@ -43,6 +43,7 @@
                         <thead>
                             <tr>
                                 <th>Title</th>
+                                <th>Media</th>
                                 <th>Seller</th>
                                 <th>Price</th>
                                 <th>Quantity</th>
@@ -56,6 +57,17 @@
                             {% for listing in listings %}
                             <tr>
                                 <td><strong>{{ listing.title }}</strong></td>
+                                <td>
+                                    {% if listing.image %}
+                                        <span class="badge bg-info"><i class="fas fa-image"></i> Photo</span>
+                                    {% endif %}
+                                    {% if listing.video %}
+                                        <span class="badge bg-dark"><i class="fas fa-video"></i> Video</span>
+                                    {% endif %}
+                                    {% if not listing.image and not listing.video %}
+                                        <span class="text-muted">None</span>
+                                    {% endif %}
+                                </td>
                                 <td>{{ listing.seller.username }}</td>
                                 <td>UGX {{ listing.price|floatformat:0 }}</td>
                                 <td>{{ listing.quantity }}</td>
