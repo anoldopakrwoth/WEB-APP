@@ -1,0 +1,268 @@
+{% extends 'base.html' %}
+
+{% block title %}Marketplace - AgriLink{% endblock %}
+
+{% block extra_css %}
+<style>
+    .header-section {
+        background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+        color: white;
+        border-radius: 15px;
+        padding: 60px 40px;
+        margin-bottom: 40px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+    
+    .header-section h1 {
+        font-weight: 700;
+        margin-bottom: 10px;
+        font-size: 2.5rem;
+    }
+    
+    .header-section p {
+        font-size: 18px;
+        margin-bottom: 20px;
+        opacity: 0.95;
+    }
+
+    .btn-marketplace {
+        background: white;
+        color: #27ae60;
+        font-weight: 700;
+        padding: 12px 30px;
+        border: none;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        display: inline-block;
+    }
+
+    .btn-marketplace:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        color: #27ae60;
+    }
+    
+    .card-listing {
+        background: white;
+        border: none;
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 25px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    
+    .card-listing:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+    }
+    
+    .card-listing-header {
+        background: linear-gradient(135deg, #ecf0f1 0%, #bdc3c7 100%);
+        padding: 20px;
+        border-bottom: 3px solid #2ecc71;
+    }
+    
+    .card-listing-title {
+        color: #2c3e50;
+        font-size: 22px;
+        font-weight: 700;
+        margin: 0;
+    }
+    
+    .card-listing-title a {
+        color: #2c3e50;
+        text-decoration: none;
+    }
+    
+    .card-listing-title a:hover {
+        color: #2ecc71;
+    }
+    
+    .card-listing-body {
+        padding: 20px;
+    }
+    
+    .price-badge {
+        background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        font-size: 20px;
+        font-weight: 700;
+        display: inline-block;
+        margin-bottom: 15px;
+    }
+    
+    .badge-custom {
+        display: inline-block;
+        background: #3498db;
+        color: white;
+        padding: 8px 15px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 600;
+        margin-right: 8px;
+        margin-bottom: 10px;
+    }
+    
+    .badge-custom.village {
+        background: #e74c3c;
+    }
+    
+    .badge-custom.town {
+        background: #9b59b6;
+    }
+    
+    .seller-info {
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 15px;
+        border-left: 4px solid #2ecc71;
+    }
+    
+    .seller-name {
+        color: #2c3e50;
+        font-weight: 700;
+        font-size: 16px;
+    }
+    
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        color: #7f8c8d;
+    }
+    
+    .empty-state-icon {
+        font-size: 64px;
+        margin-bottom: 20px;
+        opacity: 0.5;
+    }
+    
+    .empty-state h3 {
+        color: #2c3e50;
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+    
+    .section-title {
+        color: #2c3e50;
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 30px;
+        position: relative;
+        padding-bottom: 15px;
+    }
+    
+    .section-title:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 4px;
+        background: #2ecc71;
+        border-radius: 2px;
+    }
+
+    .cta-section {
+        background: white;
+        padding: 40px;
+        border-radius: 12px;
+        text-align: center;
+        margin-top: 40px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .cta-section h3 {
+        color: #2c3e50;
+        font-size: 24px;
+        margin-bottom: 20px;
+        font-weight: 700;
+    }
+
+    .main-content {
+        padding: 20px 0;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="header-section">
+        <h1>🌱 AgriLink Marketplace</h1>
+        <p>Connect village farmers directly to town markets - Fresh produce, Fair prices, Direct delivery</p>
+        {% if user.is_authenticated %}
+            <a href="{% url 'create_listing' %}" class="btn btn-marketplace">+ Post Your Harvest</a>
+        {% else %}
+            <a href="{% url 'login' %}" class="btn btn-marketplace">Sign In to Post Produce</a>
+            <a href="{% url 'signup' %}" class="btn btn-marketplace ms-2">Create Account</a>
+        {% endif %}
+    </div>
+
+    <div class="section-title">Available Produce</div>
+
+    {% if listings %}
+        <div class="row">
+            {% for listing in listings %}
+                <div class="col-lg-6 col-md-12">
+                    <div class="card-listing">
+                        <div class="card-listing-header">
+                            <h3 class="card-listing-title">
+                                <a href="{% url 'listing_detail' listing.pk %}">{{listing.title}}</a>
+                            </h3>
+                        </div>
+                        {% if listing.image %}
+                        <div style="overflow: hidden; height: 200px;">
+                            <img src="{{ listing.image.url }}" alt="{{ listing.title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        {% endif %}
+                        <div class="card-listing-body">
+                            <div class="price-badge">UGX {{listing.price}} / {{listing.quantity}}</div>
+                            <div>
+                                <span class="badge-custom village">🏘️ From: {{listing.village_origin}}</span>
+                                <span class="badge-custom town">🏙️ To: {{listing.target_town}}</span>
+                            </div>
+                            <div class="seller-info">
+                                <span class="seller-name">👨‍🌾 {{listing.seller.username}}</span>
+                                <br>
+                                <small style="color: #7f8c8d;">📧 {{listing.seller.email}}</small>
+                            </div>
+                            <a href="{% url 'listing_detail' listing.pk %}" class="btn btn-primary w-100 mt-3">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="card" style="border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+            <div class="empty-state">
+                <div class="empty-state-icon">📭</div>
+                <h3>No Produce Available Yet</h3>
+                {% if user.is_authenticated %}
+                    <p>Be the first farmer to post your harvest!</p>
+                    <a href="{% url 'create_listing' %}" class="btn btn-primary mt-3">+ Post Produce Now</a>
+                {% else %}
+                    <p>Sign in to view and post agricultural products</p>
+                    <a href="{% url 'login' %}" class="btn btn-primary mt-3">Sign In</a>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+
+    {% if not user.is_authenticated %}
+    <div class="cta-section">
+        <h3>Ready to Join AgriLink?</h3>
+        <p style="color: #7f8c8d; margin-bottom: 20px;">Create an account to buy fresh produce or sell your harvest directly to markets</p>
+        <a href="{% url 'signup' %}" class="btn btn-primary btn-lg me-2">
+            <i class="fas fa-user-plus"></i> Sign Up Now
+        </a>
+        <a href="{% url 'login' %}" class="btn btn-outline-primary btn-lg">
+            <i class="fas fa-sign-in-alt"></i> Already Have Account?
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

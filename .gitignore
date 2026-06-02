@@ -1,6 +1,7 @@
-# Environment variables
+# Environment Variables
 .env
 .env.local
+.env.*.local
 
 # Python
 __pycache__/
@@ -20,18 +21,15 @@ parts/
 sdist/
 var/
 wheels/
-pip-wheel-metadata/
-share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
 
-# Virtual Environment
-.venv/
+# Virtual Environments
 venv/
 ENV/
 env/
-.virtualenv
+.venv
 
 # IDE
 .vscode/
@@ -41,25 +39,18 @@ env/
 *~
 .DS_Store
 
-# Database
-*.sqlite3
-db.sqlite3
-
-# Media and Static files (optional - exclude user uploads but not structure)
-media/uploads/
-/staticfiles/
-
-# Logs
+# Django
 *.log
-logs/
-
-# OS
-.env.example
-.mypy_cache/
+db.sqlite3
+db.sqlite3-journal
+/media/
+/staticfiles/
 .pytest_cache/
+
+# Testing
 .coverage
 htmlcov/
 
-# Project specific
-.coverage
-coverage.xml
+# OS
+Thumbs.db
+.DS_Store

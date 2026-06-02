@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+
+{% block title %}Post Your Harvest - AgriLink{% endblock %}
+
+{% block extra_css %}
+<style>
+    .form-container {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        padding: 40px;
+        max-width: 600px;
+        margin: 0 auto 40px;
+    }
+    
+    .form-title {
+        color: #2c3e50;
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+    
+    .form-subtitle {
+        color: #7f8c8d;
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 16px;
+    }
+    
+    .form-group {
+        margin-bottom: 25px;
+    }
+    
+    .form-label {
+        color: #2c3e50;
+        font-weight: 700;
+        font-size: 16px;
+        margin-bottom: 10px;
+        display: block;
+    }
+    
+    .form-control {
+        border: 2px solid #ecf0f1;
+        border-radius: 8px;
+        padding: 12px 15px;
+        font-size: 16px;
+        transition: all 0.3s ease;
+    }
+    
+    .form-control:focus {
+        border-color: #2ecc71;
+        box-shadow: 0 0 0 0.2rem rgba(46, 204, 113, 0.25);
+    }
+    
+    .form-control::placeholder {
+        color: #bdc3c7;
+    }
+    
+    textarea.form-control {
+        resize: vertical;
+        min-height: 120px;
+    }
+    
+    .form-section-title {
+        color: #2c3e50;
+        font-weight: 700;
+        font-size: 18px;
+        margin-top: 30px;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #ecf0f1;
+    }
+    
+    .form-section-title:first-child {
+        margin-top: 0;
+    }
+    
+    .form-hint {
+        color: #7f8c8d;
+        font-size: 13px;
+        margin-top: 6px;
+        display: block;
+    }
+    
+    .row-buttons {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        margin-top: 20px;
+    }
+    
+    @media (max-width: 576px) {
+        .row-buttons {
+            grid-template-columns: 1fr;
+        }
+        
+        .form-container {
+            padding: 25px;
+        }
+    }
+
+    .main-content {
+        padding: 20px 0;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="form-container">
+        <h1 class="form-title">📋 Post Your Harvest</h1>
+        <p class="form-subtitle">Share your fresh produce with town markets</p>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="form-section-title">📦 Product Information</div>
+
+            <div class="form-group">
+                <label class="form-label">Produce Name *</label>
+                <input type="text" name="title" class="form-control" required placeholder="e.g., Organic Tomatoes, Fresh Maize">
+                <span class="form-hint">Name of your agricultural product</span>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Price (UGX) *</label>
+                <input type="number" step="0.01" name="price" class="form-control" required placeholder="Enter price in Uganda Shillings">
+                <span class="form-hint">Price in Uganda Shillings (UGX) per unit</span>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Quantity / Measurement *</label>
+                <input type="text" name="quantity" class="form-control" required placeholder="e.g., 100kg bag, 50 crates">
+                <span class="form-hint">How much are you offering</span>
+            </div>
+
+            <div class="form-section-title">🗺️ Location Details</div>
+
+            <div class="form-group">
+                <label class="form-label">Village / Origin *</label>
+                <input type="text" name="village_origin" class="form-control" required placeholder="e.g., Mbale District">
+                <span class="form-hint">Where your produce is located</span>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Target Town / Market *</label>
+                <input type="text" name="target_town" class="form-control" required placeholder="e.g., Kampala Central">
+                <span class="form-hint">Intended delivery/market town</span>
+            </div>
+
+            <div class="form-section-title">📝 Additional Details</div>
+
+            <div class="form-group">
+                <label class="form-label">Description *</label>
+                <textarea name="description" class="form-control" required placeholder="Describe your produce: quality, freshness, delivery terms, contact preferences, etc."></textarea>
+                <span class="form-hint">Provide details about your product and delivery information</span>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">📸 Product Photo</label>
+                <input type="file" name="image" class="form-control" accept="image/*">
+                <span class="form-hint">Upload a clear photo of your produce (optional)</span>
+            </div>
+
+            <div class="row-buttons">
+                <button type="submit" class="btn btn-primary btn-lg">✓ Publish Listing</button>
+                <a href="{% url 'market_feed' %}" class="btn btn-secondary btn-lg">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

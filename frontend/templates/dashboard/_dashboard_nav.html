@@ -1,0 +1,33 @@
+<div class="dashboard-bar">
+    <div class="container-fluid">
+        <nav class="dashboard-bar-inner" aria-label="Dashboard navigation">
+            {% with current_url=request.resolver_match.url_name %}
+            <a class="dashboard-bar-link {% if current_url == 'dashboard_home' %}active{% endif %}" href="{% url 'dashboard_home' %}">
+                <i class="fas fa-chart-line"></i> Overview
+            </a>
+            <a class="dashboard-bar-link {% if current_url == 'user_management' %}active{% endif %}" href="{% url 'user_management' %}">
+                <i class="fas fa-users"></i> Users
+            </a>
+            <a class="dashboard-bar-link {% if current_url == 'listing_management' %}active{% endif %}" href="{% url 'listing_management' %}">
+                <i class="fas fa-list"></i> Listings
+            </a>
+            <a class="dashboard-bar-link {% if current_url == 'analytics' %}active{% endif %}" href="{% url 'analytics' %}">
+                <i class="fas fa-chart-bar"></i> Analytics
+            </a>
+            <a class="dashboard-bar-link {% if current_url == 'system_logs' %}active{% endif %}" href="{% url 'system_logs' %}">
+                <i class="fas fa-history"></i> Logs
+            </a>
+            <a class="dashboard-bar-link {% if current_url == 'notifications' %}active{% endif %}" href="{% url 'notifications' %}">
+                <i class="fas fa-bell"></i> Notifications
+            </a>
+            <span class="dashboard-bar-spacer" aria-hidden="true"></span>
+            <a class="dashboard-bar-link" href="{% url 'market_feed' %}">
+                <i class="fas fa-store"></i> Marketplace
+            </a>
+            <a class="dashboard-bar-link" href="{% url 'admin:index' %}">
+                <i class="fas fa-screwdriver-wrench"></i> Django Admin
+            </a>
+            {% endwith %}
+        </nav>
+    </div>
+</div>

@@ -3,6 +3,7 @@
 {% block title %}Analytics - Admin Dashboard{% endblock %}
 
 {% block content %}
+{% include 'dashboard/_dashboard_nav.html' %}
 <div class="container-fluid mt-4 mb-5">
     <div class="row mb-4">
         <div class="col-12">
@@ -111,9 +112,9 @@
             <div class="row">
                 <div class="col-md-6">
                     <h6>New Users Per Day</h6>
-                    <p class="text-muted">Total new signups: {{ daily_new_users|sum }}</p>
+                    <p class="text-muted">Total new signups: {{ total_new_users_30d }}</p>
                     <div class="progress" style="height: 250px;">
-                        <div class="d-flex align-items-flex-end gap-1" style="width: 100%; height: 100%;">
+                        <div class="d-flex align-items-end gap-1" style="width: 100%; height: 100%;">
                             {% for count in daily_new_users %}
                             <div class="bg-success" style="flex: 1; height: {{ count|add:10 }}px;" title="{{ count }} users"></div>
                             {% endfor %}
@@ -122,9 +123,9 @@
                 </div>
                 <div class="col-md-6">
                     <h6>New Listings Per Day</h6>
-                    <p class="text-muted">Total new listings: {{ daily_new_listings|sum }}</p>
+                    <p class="text-muted">Total new listings: {{ total_new_listings_30d }}</p>
                     <div class="progress" style="height: 250px;">
-                        <div class="d-flex align-items-flex-end gap-1" style="width: 100%; height: 100%;">
+                        <div class="d-flex align-items-end gap-1" style="width: 100%; height: 100%;">
                             {% for count in daily_new_listings %}
                             <div class="bg-info" style="flex: 1; height: {{ count|add:10 }}px;" title="{{ count }} listings"></div>
                             {% endfor %}

@@ -11,22 +11,13 @@
                     <h3 class="mb-0"><i class="fas fa-user-plus"></i> Create Account</h3>
                 </div>
                 <div class="card-body p-4">
-                    {% if messages %}
-                        {% for message in messages %}
-                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
-                                {{ message }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                            </div>
-                        {% endfor %}
-                    {% endif %}
-
                     <form method="POST">
                         {% csrf_token %}
 
                         <div class="mb-3">
                             <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="username" name="username" required>
-                            <small class="text-muted">Letters, digits and @/./+/-/_ only.</small>
+                            <input type="text" class="form-control" id="username" name="username" autocomplete="username" required>
+                            <small class="text-muted">Letters, digits, and @/./+/-/_ only.</small>
                         </div>
 
                         <div class="row">
@@ -42,7 +33,7 @@
 
                         <div class="mb-3">
                             <label for="email" class="form-label">Email Address</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
+                            <input type="email" class="form-control" id="email" name="email" autocomplete="email" required>
                         </div>
 
                         <div class="mb-3">
@@ -65,13 +56,13 @@
 
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
-                            <small class="text-muted">Minimum 6 characters.</small>
+                            <input type="password" class="form-control" id="password" name="password" autocomplete="new-password" required>
+                            <small class="text-muted">Use at least 8 characters and avoid common passwords.</small>
                         </div>
 
                         <div class="mb-3">
                             <label for="password_confirm" class="form-label">Confirm Password</label>
-                            <input type="password" class="form-control" id="password_confirm" name="password_confirm" required>
+                            <input type="password" class="form-control" id="password_confirm" name="password_confirm" autocomplete="new-password" required>
                         </div>
 
                         <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">
@@ -80,7 +71,7 @@
                     </form>
 
                     <p class="text-center mb-0">
-                        Already have an account? <a href="{% url 'login' %}">Login here</a>
+                        Already have an account? <a href="{% url 'login' %}">Log in here</a>
                     </p>
                 </div>
             </div>

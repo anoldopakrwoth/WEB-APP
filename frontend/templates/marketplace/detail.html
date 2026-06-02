@@ -1,0 +1,199 @@
+{% extends 'base.html' %}
+
+{% block title %}{{listing.title}} - AgriLink{% endblock %}
+
+{% block extra_css %}
+<style>
+    .breadcrumb-link {
+        display: inline-block;
+        margin-bottom: 20px;
+    }
+    
+    .breadcrumb-link a {
+        color: #2ecc71;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+    
+    .breadcrumb-link a:hover {
+        color: #27ae60;
+    }
+    
+    .detail-container {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        padding: 40px;
+        margin-bottom: 30px;
+    }
+    
+    .detail-title {
+        color: #2c3e50;
+        font-size: 36px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        border-bottom: 3px solid #2ecc71;
+        padding-bottom: 15px;
+    }
+    
+    .price-display {
+        background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+        color: white;
+        padding: 25px;
+        border-radius: 12px;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    
+    .price-display .price-value {
+        font-size: 48px;
+        font-weight: 700;
+    }
+    
+    .price-display .price-unit {
+        font-size: 18px;
+        opacity: 0.9;
+    }
+    
+    .info-section {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        border-left: 4px solid #2ecc71;
+    }
+    
+    .info-label {
+        color: #2c3e50;
+        font-weight: 700;
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+    
+    .info-value {
+        color: #2c3e50;
+        font-size: 16px;
+        line-height: 1.6;
+    }
+    
+    .description-section {
+        background: white;
+        padding: 25px;
+        border-radius: 10px;
+        border: 2px solid #ecf0f1;
+        margin-bottom: 30px;
+    }
+    
+    .description-section h3 {
+        color: #2c3e50;
+        font-weight: 700;
+        margin-bottom: 15px;
+    }
+    
+    .description-section p {
+        color: #555;
+        line-height: 1.8;
+        font-size: 16px;
+    }
+    
+    .seller-card {
+        background: linear-gradient(135deg, #f8f9fa 0%, #ecf0f1 100%);
+        padding: 25px;
+        border-radius: 12px;
+        border: 2px solid #2ecc71;
+        margin-top: 30px;
+    }
+    
+    .seller-card h4 {
+        color: #2c3e50;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+    
+    .seller-detail {
+        display: flex;
+        align-items: center;
+        margin-bottom: 12px;
+    }
+    
+    .seller-detail strong {
+        color: #2c3e50;
+        margin-right: 10px;
+        min-width: 100px;
+    }
+    
+    .seller-detail span {
+        color: #2c3e50;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="breadcrumb-link">
+        <a href="{% url 'market_feed' %}">← Back to Marketplace</a>
+    </div>
+
+    <div class="detail-container">
+        <h1 class="detail-title">{{listing.title}}</h1>
+        
+        {% if listing.image %}
+        <div style="margin-bottom: 30px; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+            <img src="{{ listing.image.url }}" alt="{{ listing.title }}" style="width: 100%; max-height: 400px; object-fit: cover;">
+        </div>
+        {% endif %}
+
+        <div class="price-display">
+            <div class="price-value">UGX {{listing.price}}</div>
+            <div class="price-unit">per {{listing.quantity}}</div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="info-section">
+                    <div class="info-label">🏘️ Village Origin</div>
+                    <div class="info-value">{{listing.village_origin}}</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="info-section">
+                    <div class="info-label">🏙️ Target Town</div>
+                    <div class="info-value">{{listing.target_town}}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="description-section">
+            <h3>📝 Description</h3>
+            <p>{{listing.description}}</p>
+        </div>
+
+        <div class="seller-card">
+            <h4>👨‍🌾 Farmer / Seller Information</h4>
+            <div class="seller-detail">
+                <strong>Name:</strong>
+                <span>{{listing.seller.username}}</span>
+            </div>
+            <div class="seller-detail">
+                <strong>Email:</strong>
+                <span>{{listing.seller.email}}</span>
+            </div>
+            <div class="seller-detail">
+                <strong>Status:</strong>
+                <span>
+                    {% if listing.is_available %}
+                        <span style="background: #2ecc71; color: white; padding: 4px 12px; border-radius: 4px; font-weight: 600;">Available ✓</span>
+                    {% else %}
+                        <span style="background: #e74c3c; color: white; padding: 4px 12px; border-radius: 4px; font-weight: 600;">Sold Out</span>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <a href="{% url 'market_feed' %}" class="btn btn-primary btn-lg">
+        ← Back to Marketplace
+    </a>
+</div>
+{% endblock %}

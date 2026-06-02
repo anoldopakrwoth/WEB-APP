@@ -51,6 +51,28 @@
             border-bottom: 3px solid white;
         }
 
+        .nav-link.dashboard-entry {
+            font-weight: 700;
+        }
+
+        .nav-link.admin-dashboard-link {
+            background: rgba(255, 255, 255, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.55);
+            border-radius: 8px;
+            color: #fff !important;
+            font-weight: 700;
+            margin-right: 8px;
+            padding-left: 14px !important;
+            padding-right: 14px !important;
+        }
+
+        .nav-link.admin-dashboard-link:hover,
+        .nav-link.admin-dashboard-link.active {
+            background: #fff;
+            color: var(--secondary-color) !important;
+            transform: translateY(-2px);
+        }
+
         /* Buttons */
         .btn-primary {
             background-color: var(--primary-color);
@@ -170,6 +192,45 @@
             border-left-color: var(--primary-color);
         }
 
+        /* Dashboard Bar */
+        .dashboard-bar {
+            background: #ffffff;
+            border-bottom: 1px solid #e9ecef;
+            box-shadow: 0 2px 10px rgba(44, 62, 80, 0.06);
+        }
+
+        .dashboard-bar-inner {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 12px 0;
+            white-space: nowrap;
+        }
+
+        .dashboard-bar-link {
+            align-items: center;
+            border-radius: 8px;
+            color: var(--dark-color);
+            display: inline-flex;
+            font-weight: 600;
+            gap: 8px;
+            min-height: 40px;
+            padding: 8px 12px;
+            text-decoration: none;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .dashboard-bar-link:hover,
+        .dashboard-bar-link.active {
+            background-color: rgba(46, 204, 113, 0.12);
+            color: var(--secondary-color);
+        }
+
+        .dashboard-bar-spacer {
+            flex: 1 0 16px;
+        }
+
         /* Tables */
         .table {
             background-color: white;
@@ -189,6 +250,10 @@
             .hero-section h1 {
                 font-size: 1.8rem;
             }
+
+            .dashboard-bar-spacer {
+                display: none;
+            }
         }
     </style>
     
@@ -206,20 +271,21 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
+                    {% with current_url=request.resolver_match.url_name %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'market_feed' %}">
+                        <a class="nav-link {% if current_url == 'market_feed' %}active{% endif %}" href="{% url 'market_feed' %}">
                             <i class="fas fa-home"></i> Marketplace
                         </a>
                     </li>
                     {% if user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'create_listing' %}">
+                            <a class="nav-link {% if current_url == 'create_listing' %}active{% endif %}" href="{% url 'create_listing' %}">
                                 <i class="fas fa-plus"></i> Post Harvest
                             </a>
                         </li>
-                        {% if user.username == 'admin' %}
+                        {% if user.is_staff or user.is_superuser %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'dashboard_home' %}">
+                            <a class="nav-link dashboard-entry {% if current_url == 'dashboard_home' or current_url == 'user_management' or current_url == 'listing_management' or current_url == 'analytics' or current_url == 'system_logs' or current_url == 'notifications' %}active{% endif %}" href="{% url 'dashboard_home' %}">
                                 <i class="fas fa-chart-line"></i> Dashboard
                             </a>
                         </li>
@@ -231,21 +297,34 @@
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                                 <li><a class="dropdown-item" href="{% url 'profile' %}"><i class="fas fa-id-card"></i> Profile</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                                <li>
+                                    <form method="POST" action="{% url 'logout' %}">
+                                        {% csrf_token %}
+                                        <button class="dropdown-item" type="submit">
+                                            <i class="fas fa-sign-out-alt"></i> Logout
+                                        </button>
+                                    </form>
+                                </li>
                             </ul>
                         </li>
                     {% else %}
                         <li class="nav-item">
+                            <a class="nav-link admin-dashboard-link" href="{% url 'dashboard_home' %}">
+                                <i class="fas fa-user-shield"></i> Admin Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{% url 'login' %}">
-                                <i class="fas fa-sign-in-alt"></i> Login
+                                <i class="fas fa-sign-in-alt"></i> Sign In
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'signup' %}">
-                                <i class="fas fa-user-plus"></i> Sign Up
+                                <i class="fas fa-user-plus"></i> Create Account
                             </a>
                         </li>
                     {% endif %}
+                    {% endwith %}
                 </ul>
             </div>
         </div>
