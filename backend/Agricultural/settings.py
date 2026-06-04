@@ -39,7 +39,6 @@ SECRET_KEY = os.getenv(
 DEBUG = (
     os.getenv('DEBUG', 'False').lower() == 'true'
     and not os.getenv('RENDER')
-    and not os.getenv('VERCEL')
 )
 
 ALLOWED_HOSTS = [
@@ -53,13 +52,6 @@ RENDER_EXTERNAL_HOSTNAME = os.getenv('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
-# Vercel deployment
-if os.getenv('VERCEL'):
-    ALLOWED_HOSTS.extend([
-        '*.vercel.app',
-        'localhost',
-        '127.0.0.1',
-    ])
 
 
 # Application definition
@@ -183,7 +175,7 @@ LOGOUT_REDIRECT_URL = 'login'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Security Settings
-if os.getenv('VERCEL') or os.getenv('RENDER'):
+if os.getenv('RENDER'):
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True

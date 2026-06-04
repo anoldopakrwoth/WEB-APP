@@ -10,4 +10,3 @@ gunicorn==26.0.0
 
 # Production database
 psycopg2-binary==2.9.12
-asgiref
