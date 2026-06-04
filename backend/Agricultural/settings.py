@@ -43,7 +43,10 @@ DEBUG = (
 
 ALLOWED_HOSTS = [
     host.strip()
-    for host in os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+    for host in os.getenv(
+        'ALLOWED_HOSTS',
+        'localhost,127.0.0.1,.vercel.app,.now.sh'
+    ).split(',')
     if host.strip()
 ]
 
@@ -107,7 +110,7 @@ WSGI_APPLICATION = 'Agricultural.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3' if not os.getenv('VERCEL') else '/tmp/db.sqlite3'}",
         conn_max_age=600,
         conn_health_checks=True,
     )
@@ -250,7 +253,7 @@ LOGGING = {
         'file': {
             'level': 'INFO',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': BASE_DIR / 'logs' / 'django.log',
+            'filename': '/tmp/logs/django.log',
             'maxBytes': 1024 * 1024 * 10,  # 10MB
             'backupCount': 5,
             'formatter': 'verbose',
@@ -271,8 +274,10 @@ LOGGING = {
 }
 
 # Create logs directory if it doesn't exist
-if not (BASE_DIR / 'logs').exists():
-    (BASE_DIR / 'logs').mkdir(exist_ok=True)
+import os as _os
+_log_dir = '/tmp/logs'
+if not _os.path.exists(_log_dir):
+    _os.makedirs(_log_dir, exist_ok=True)
 if RENDER_EXTERNAL_HOSTNAME:
     CSRF_TRUSTED_ORIGINS.append(f'https://{RENDER_EXTERNAL_HOSTNAME}')
 
