@@ -1,0 +1,14 @@
+<svg width="520" height="520" viewBox="0 0 520 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="520" height="520" rx="40" fill="#F9FBFF"/>
+  <circle cx="130" cy="120" r="38" fill="#F08A5D"/>
+  <circle cx="210" cy="140" r="30" fill="#F9D423"/>
+  <circle cx="300" cy="130" r="35" fill="#4D96FF"/>
+  <path d="M110 190C130 160 190 150 220 190" stroke="#2D4059" stroke-width="18" stroke-linecap="round"/>
+  <path d="M200 190C220 160 280 150 310 190" stroke="#2D4059" stroke-width="18" stroke-linecap="round"/>
+  <rect x="120" y="210" width="80" height="140" rx="36" fill="#6AA84F"/>
+  <rect x="220" y="230" width="80" height="120" rx="36" fill="#4B8B3B"/>
+  <rect x="320" y="220" width="80" height="130" rx="36" fill="#3A5FA8"/>
+  <circle cx="380" cy="380" r="24" fill="#F3969A"/>
+  <path d="M80 470H440" stroke="#90A4AE" stroke-width="24" stroke-linecap="round"/>
+  <text x="120" y="490" fill="#243B55" font-size="24" font-family="Inter, sans-serif" font-weight="700">Shared harvest</text>
+</svg>

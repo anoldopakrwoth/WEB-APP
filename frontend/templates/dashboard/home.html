@@ -1,10 +1,26 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Admin Dashboard - AgriLink{% endblock %}
 
 {% block content %}
 {% include 'dashboard/_dashboard_nav.html' %}
 <div class="container-fluid mt-4 mb-5">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card overflow-hidden">
+                <div class="row g-0 align-items-center">
+                    <div class="col-lg-8 p-4">
+                        <h1 class="mb-0"><i class="fas fa-chart-line"></i> Admin Dashboard</h1>
+                        <p class="text-muted">Monitor the marketplace, manage harvest listings, and access backend tools quickly.</p>
+                    </div>
+                    <div class="col-lg-4 text-center p-4 bg-light">
+                        <img src="{% static 'images/admin-panel.jpg' %}" alt="Admin backend photo" class="img-fluid rounded-4 shadow-sm" style="max-height: 220px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row mb-4">
         <div class="col-12">
             <h1 class="mb-0"><i class="fas fa-chart-line"></i> Admin Dashboard</h1>
@@ -108,6 +124,20 @@
                     </a>
                     <a href="{% url 'change_admin_password' %}" class="btn btn-outline-dark">
                         <i class="fas fa-key"></i> Change Password
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card border-success">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-server"></i> Backend Access</h5>
+                    <p class="card-text text-muted">As an admin, click the button below to open the Django backend management system directly.</p>
+                    <a href="{% url 'admin:index' %}" class="btn btn-success" target="_blank">
+                        <i class="fas fa-screwdriver-wrench"></i> Open Backend Admin
                     </a>
                 </div>
             </div>

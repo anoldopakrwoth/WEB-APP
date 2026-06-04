@@ -1,0 +1,16 @@
+<svg width="520" height="520" viewBox="0 0 520 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="520" height="520" rx="40" fill="#F2F8FF"/>
+  <path d="M80 420H440V300H80V420Z" fill="#86B8FF"/>
+  <path d="M90 300L150 220H370L430 300H90Z" fill="#2F80ED"/>
+  <path d="M150 220V170H170V220H150Z" fill="#fff"/>
+  <path d="M210 220V170H230V220H210Z" fill="#fff"/>
+  <path d="M270 220V170H290V220H270Z" fill="#fff"/>
+  <path d="M330 220V170H350V220H330Z" fill="#fff"/>
+  <circle cx="160" cy="380" r="30" fill="#E39A4B"/>
+  <circle cx="260" cy="380" r="30" fill="#FBBF77"/>
+  <circle cx="360" cy="380" r="30" fill="#D6633C"/>
+  <rect x="130" y="410" width="60" height="80" rx="24" fill="#3A6A9B"/>
+  <rect x="230" y="410" width="60" height="80" rx="24" fill="#3A6A9B"/>
+  <rect x="330" y="410" width="60" height="80" rx="24" fill="#3A6A9B"/>
+  <text x="110" y="70" fill="#2D4A55" font-size="28" font-family="Inter, sans-serif" font-weight="700">Market Buyers</text>
+</svg>

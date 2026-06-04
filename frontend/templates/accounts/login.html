@@ -1,44 +1,56 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Sign In - AgriLink{% endblock %}
 
 {% block content %}
 <div class="container mt-5 mb-5">
     <div class="row justify-content-center">
-        <div class="col-md-5">
-            <div class="card shadow-lg">
-                <div class="card-header">
-                    <h3 class="mb-0"><i class="fas fa-sign-in-alt"></i> Sign In</h3>
-                </div>
-                <div class="card-body p-4">
-                    <form method="POST">
-                        {% csrf_token %}
-                        {% if request.GET.next %}
-                            <input type="hidden" name="next" value="{{ request.GET.next }}">
-                        {% endif %}
+        <div class="col-md-8 mb-4">
+            <div class="card border-0 shadow-sm overflow-hidden">
+                <div class="row g-0 align-items-center">
+                    <div class="col-md-5 d-none d-md-block bg-light p-4">
+                        <img src="{% static 'images/login-agri.jpg' %}" alt="Login photo" class="img-fluid rounded-4 shadow-sm">
+                    </div>
+                    <div class="col-md-7">
+                        <div class="card-body p-4">
+                            <div class="card shadow-lg border-0">
+                                <div class="card-header bg-white border-0">
+                                    <h3 class="mb-0"><i class="fas fa-sign-in-alt"></i> Sign In</h3>
+                                </div>
+                                <div class="card-body p-4">
+                                    <form method="POST">
+                                        {% csrf_token %}
+                                        {% if request.GET.next %}
+                                            <input type="hidden" name="next" value="{{ request.GET.next }}">
+                                        {% endif %}
 
-                        <div class="mb-3">
-                            <label for="username" class="form-label">Username</label>
-                            <input type="text" class="form-control form-control-lg" id="username" name="username" autocomplete="username" placeholder="Enter your username" required autofocus>
+                                        <div class="mb-3">
+                                            <label for="username" class="form-label">Username</label>
+                                            <input type="text" class="form-control form-control-lg" id="username" name="username" autocomplete="username" placeholder="Enter your username" required autofocus>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="password" class="form-label">Password</label>
+                                            <input type="password" class="form-control form-control-lg" id="password" name="password" autocomplete="current-password" placeholder="Enter your password" required>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">
+                                            <i class="fas fa-sign-in-alt"></i> Log In
+                                        </button>
+                                    </form>
+
+                                    <p class="text-center text-muted small mb-3">
+                                        Admin dashboard access: use <strong>admin</strong> / <strong>admin</strong> to sign in. Both username and password are lowercase. Change your password under dashboard settings after login.
+                                    </p>
+
+                                    <p class="text-center mb-0">
+                                        Don't have an account? <a href="{% url 'signup' %}">Create one here</a>
+                                    </p>
+                                </div>
+                            </div>
                         </div>
-
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control form-control-lg" id="password" name="password" autocomplete="current-password" placeholder="Enter your password" required>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">
-                            <i class="fas fa-sign-in-alt"></i> Log In
-                        </button>
-                    </form>
-
-                    <p class="text-center text-muted small mb-3">
-                        Admin dashboard access: use <strong>admin</strong> / <strong>admin</strong> to sign in, then change your password under the dashboard settings.
-                    </p>
-
-                    <p class="text-center mb-0">
-                        Don't have an account? <a href="{% url 'signup' %}">Create one here</a>
-                    </p>
+                    </div>
                 </div>
             </div>
         </div>

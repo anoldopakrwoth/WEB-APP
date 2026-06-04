@@ -1,0 +1,15 @@
+<svg width="520" height="520" viewBox="0 0 520 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="520" height="520" rx="40" fill="#F8FEF6"/>
+  <path d="M60 400H460L420 320H100L60 400Z" fill="#88C057"/>
+  <path d="M95 320L150 220L205 320" fill="#56A84D"/>
+  <path d="M195 320L250 220L305 320" fill="#56A84D"/>
+  <path d="M295 320L350 220L405 320" fill="#56A84D"/>
+  <path d="M130 260C110 220 120 190 150 170" stroke="#2E7D32" stroke-width="16" stroke-linecap="round"/>
+  <path d="M245 240C225 200 235 170 265 150" stroke="#2E7D32" stroke-width="16" stroke-linecap="round"/>
+  <path d="M360 260C340 220 350 190 380 170" stroke="#2E7D32" stroke-width="16" stroke-linecap="round"/>
+  <path d="M50 440H470" stroke="#4E8F41" stroke-width="24" stroke-linecap="round"/>
+  <circle cx="116" cy="120" r="32" fill="#F9C74F"/>
+  <ellipse cx="112" cy="118" rx="18" ry="10" fill="#FCA311" opacity="0.85"/>
+  <rect x="88" y="120" width="70" height="24" rx="12" fill="#A6DAA9"/>
+  <text x="90" y="490" fill="#2F4F4F" font-size="24" font-family="Inter, sans-serif" font-weight="700">Garden plots</text>
+</svg>
