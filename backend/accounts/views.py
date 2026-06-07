@@ -229,7 +229,7 @@ def login_view(request: HttpRequest) -> HttpResponse:
 
     if request.method == 'POST':
         username = request.POST.get('username', '').strip().lower()
-        password = request.POST.get('password', '')
+        password = request.POST.get('password', '').lower()
 
         if not username or not password:
             messages.error(request, 'Please enter username and password.')
